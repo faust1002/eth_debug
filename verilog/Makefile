@@ -13,10 +13,11 @@ DEVICE=xc6slx16
 PARTNAME=$(DEVICE)-csg324-3
 DESIGN=eth_debug
 SRC=eth_debug.v \
+debugger/debugger.v \
 uart/baud_rate_generator.v uart/uart_tx.v uart/uart.v \
 utils/fifo_16x8.v utils/xilinx_dist_ram_16x8.v
 UCF=eth_debug.ucf
-TESTBENCH=
+TESTBENCH=debugger/debugger_testbench.v
 
 TMP=tmp
 PROJECT=$(TMP)/$(DESIGN).prj
@@ -60,7 +61,7 @@ $(NCD): $(MAP_NCD)
 	$(PAR) -intstyle $(STYLE) -w -ol high -mt off $(MAP_NCD) $(NCD) $(PCF)
 
 $(MAP_NCD): $(NGD)
-	$(MAP) -intstyle $(STYLE) -p $(PARTNAME) -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -o $(MAP_NCD) $(NGD) $(PCF) 
+	$(MAP) -intstyle $(STYLE) -p $(PARTNAME) -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -o $(MAP_NCD) $(NGD) $(PCF)
 
 $(NGD): $(NGC) $(UCF)
 	$(NGDBUILD) -intstyle $(STYLE) -dd $(TMP)/_ngo -nt timestamp -uc $(UCF) -p $(PARTNAME) $(NGC) $(NGD)

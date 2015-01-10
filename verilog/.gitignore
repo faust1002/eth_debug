@@ -7,3 +7,4 @@ eth_debug_map.xrpt
 eth_debug_par.xrpt
 par_usage_statistics.html
 xilinx_device_details.xml
+*vcd
