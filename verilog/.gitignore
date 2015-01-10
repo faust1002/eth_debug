@@ -1,4 +1,9 @@
 tmp/
 _xmsgs/
 xst/
+xlnx_auto_0_xdb/
 eth_debug.lso
+eth_debug_map.xrpt
+eth_debug_par.xrpt
+par_usage_statistics.html
+xilinx_device_details.xml

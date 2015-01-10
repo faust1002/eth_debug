@@ -1,0 +1,5 @@
+NET "clk"        LOC = "V10";
+NET "reset"      LOC = "B8";
+NET "uart_tx"    LOC = "N18";
+NET "uart_empty" LOC = "T11";
+NET "uart_full"  LOC = "R11";
