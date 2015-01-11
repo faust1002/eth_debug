@@ -6,7 +6,7 @@ namespace application
 {
 class ILogger;
 
-class Application
+class Application : public IObserver
 {
 public:
     Application(ILogger&);
@@ -15,6 +15,7 @@ public:
 
 private:
     ILogger& m_logger;
+    //bool m_run;
 };
 
 } // namespace application
