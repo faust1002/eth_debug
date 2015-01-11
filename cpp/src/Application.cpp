@@ -3,7 +3,7 @@
 
 using namespace application;
 
-Application::Application(Logger& l_logger) : m_logger {l_logger}
+Application::Application(ILogger& l_logger) : m_logger {l_logger}
 {}
 
 void Application::operator()()

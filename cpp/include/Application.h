@@ -2,16 +2,16 @@
 
 namespace application
 {
-class Logger;
+class ILogger;
 
 class Application
 {
 public:
-    Application(Logger&);
+    Application(ILogger&);
     void operator()();
 
 private:
-    Logger& m_logger;
+    ILogger& m_logger;
 };
 
 } // namespace application

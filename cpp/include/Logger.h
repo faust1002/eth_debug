@@ -2,6 +2,7 @@
 
 #include <iosfwd>
 #include <string>
+#include "ILogger.h"
 
 namespace application
 {
@@ -14,7 +15,7 @@ enum class LogLevel
     CRITICAL = 3
 };
 
-class Logger
+class Logger : public ILogger
 {
 public:
     Logger(LogLevel, std::ostream&);
