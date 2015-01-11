@@ -1,10 +1,14 @@
 #include <iostream>
-#include <Signal.h>
+#include <thread>
+#include "Application.h"
+#include "Logger.h"
 using namespace std;
 
 int main()
 {
-    debugger::Signal l_signal;
-    std::cout << l_signal.test() << std::endl;
+    application::Logger l_logger {application::LogLevel::DEBUG, std::cout};
+    application::Application l_app {l_logger};
+    std::thread l_appThread {l_app};
+    l_appThread.join();
     return 0;
 }

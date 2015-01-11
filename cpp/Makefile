@@ -1,4 +1,4 @@
-PROGRAM = eth_debugger
+PROGRAM = debugger
 
 SRCDIR = src
 HDRDIR = include
@@ -14,8 +14,7 @@ else
     CXXFLAGS += -O3
 endif
 
-LD = ld
-LDFLAGS =
+LDFLAGS = -lpthread
 
 SOURCES = $(shell find $(SRCDIR) -type f -name "*.cpp" -printf "%f\n")
 OBJECTS = $(notdir $(SOURCES:.cpp=.o))
@@ -26,7 +25,7 @@ OBJS = $(addprefix $(OBJDIR)/, $(OBJECTS))
 all: $(PROGRAM)
 
 $(PROGRAM): $(OBJS)
-	$(CXX) $(LDFLAGS) -o $@ $^
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp |$(OBJDIR)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
