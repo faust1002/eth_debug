@@ -6,7 +6,7 @@ module eth_debug(
 
     wire [3:0] trigger_data;
     wire [7:0] ascii_data;
-    wire trigger;
+    wire trigger, full, w_uart;
 
     bin2ascii bin_utils (.bin(trigger_data), .ascii(ascii_data));
 
@@ -14,7 +14,9 @@ module eth_debug(
                           .w(sw), .trigger(trigger),
                           .data(trigger_data));
 
-    uart uart_unit (.clk(clk), .reset(reset), .tx(uart_tx), .wr_uart(trigger),
-                    .w_data(ascii_data), .tx_empty(uart_empty), .tx_full(uart_full));
+    uart uart_unit (.clk(clk), .reset(reset), .tx(uart_tx), .wr_uart(~reset & trigger & ~full),
+                    .w_data(ascii_data), .tx_empty(uart_empty), .tx_full(full));
+
+    assign uart_full = full;
 
 endmodule

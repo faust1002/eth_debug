@@ -15,7 +15,7 @@ DESIGN=eth_debug
 SRC=eth_debug.v \
 debugger/debugger.v \
 uart/baud_rate_generator.v uart/uart_tx.v uart/uart.v \
-utils/fifo_16x8.v utils/xilinx_dist_ram_16x8.v utils/bin2ascii.v
+utils/fifo_16x8.v utils/xilinx_dist_ram_16x8.v utils/bin2ascii.v utils/debounce.v
 UCF=eth_debug.ucf
 TESTBENCH=debugger/debugger_testbench.v
 
