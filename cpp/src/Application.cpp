@@ -11,3 +11,8 @@ void Application::operator()()
     m_logger.debug("Starting debugger");
     m_logger.debug("Debugger finished");
 }
+
+void Application::notify()
+{
+    m_logger.debug("Received notification");
+}
