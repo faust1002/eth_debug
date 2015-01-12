@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 namespace application
 {
 class IObserver;
@@ -7,7 +9,7 @@ class IObserver;
 class IObserverable
 {
 public:
-    virtual void addObserver(IObserver*) = 0;
+    virtual void addObserver(std::weak_ptr<IObserver>) = 0;
     virtual void notifyObservers() = 0;
     virtual ~IObserverable() = default;
 };

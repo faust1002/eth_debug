@@ -1,22 +1,26 @@
+#include <memory>
 #include "IObserver.h"
 #include "Link.h"
 
 using namespace debugger;
 
-void Link::operator()()
+void Link::run()
 {
     notifyObservers();
 }
 
-void Link::addObserver(application::IObserver* p_observer)
+void Link::addObserver(std::weak_ptr<application::IObserver> p_observer)
 {
     m_observers.push_back(p_observer);
 }
 
 void Link::notifyObservers()
 {
-    for (auto& l_oberver : m_observers)
+    for (auto& l_observer : m_observers)
     {
-        l_oberver->notify();
+        if (auto l_ob = l_observer.lock())
+        {
+            l_ob->notify();
+        }
     }
 }
