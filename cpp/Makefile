@@ -1,28 +1,31 @@
 PROGRAM = debugger
 
-SRCDIR = src
-HDRDIR = include
-OBJDIR = objs
+SRCDIR = $(CURDIR)/src
+HDRDIR = $(CURDIR)/include
+OBJDIR = $(CURDIR)/objs
 
 CXX = g++
-CPPFLAGS = -I include
-CXXFLAGS = -Wall -Wextra -std=c++0x -march=native
-DEBUG ?= 1
-ifeq ($(DEBUG), 1)
-    CXXFLAGS += -ggdb3 -fno-inline -O0 -g
-else
-    CXXFLAGS += -O3
-endif
+CPPFLAGS = -I $(HDRDIR)
+CXXFLAGS = -Wall -Wextra -Werror -std=c++0x -march=native -MMD -MP
 
 LDFLAGS = -lpthread
 
 SOURCES = $(shell find $(SRCDIR) -type f -name "*.cpp" -printf "%f\n")
 OBJECTS = $(notdir $(SOURCES:.cpp=.o))
 OBJS = $(addprefix $(OBJDIR)/, $(OBJECTS))
+DEPS = $(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.d))
 
-.PHONY: all clean
+.PHONY: all debug release executable clean
 
-all: $(PROGRAM)
+all: debug
+
+release: CXXFLAGS += -O3
+release: executable
+
+debug: CXXFLAGS += -ggdb3 -fno-inline -O0
+debug: executable
+
+executable: $(PROGRAM)
 
 $(PROGRAM): $(OBJS)
 	$(CXX) -o $@ $^ $(LDFLAGS)
@@ -35,3 +38,5 @@ $(OBJDIR):
 
 clean:
 	rm -rf $(OBJDIR) $(PROGRAM)
+
+-include $(DEPS)
