@@ -25,10 +25,8 @@ release: executable
 debug: CXXFLAGS += -ggdb3 -fno-inline -O0
 debug: executable
 
-executable: $(PROGRAM)
-
-$(PROGRAM): $(OBJS)
-	$(CXX) -o $@ $^ $(LDFLAGS)
+executable: $(OBJS)
+	$(CXX) -o $(PROGRAM) $^ $(LDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp |$(OBJDIR)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
