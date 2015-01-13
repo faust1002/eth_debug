@@ -13,8 +13,6 @@ class Application : public IObserver
 {
 public:
     Application(std::unique_ptr<ILogger>, std::unique_ptr<std::mutex>, std::unique_ptr<std::condition_variable>);
-    Application(Application&&) = default;
-    Application& operator=(Application&&) = default;
     void run();
     void notify();
 
