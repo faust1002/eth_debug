@@ -15,13 +15,13 @@ void Application::run()
 {
     std::unique_lock<std::mutex> l_lock {*m_mutex};
     bool l_run = true;
-    m_logger->debug("Starting debugger");
+    m_logger->log("Starting debugger");
     while (l_run)
     {
         m_variable->wait(l_lock);
         l_run = false;
     }
-    m_logger->debug("Debugger finished");
+    m_logger->log("Debugger finished");
 }
 
 void Application::notify()
