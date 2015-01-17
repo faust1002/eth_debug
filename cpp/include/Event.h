@@ -6,7 +6,7 @@
 namespace application
 {
 
-class Event //: public IEvent
+class Event : public IEvent
 {
 public:
     uint8_t getPayload() const;

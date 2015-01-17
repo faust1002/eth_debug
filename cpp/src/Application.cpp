@@ -1,7 +1,8 @@
 #include <memory>
 #include <mutex>
 #include <condition_variable>
-#include "Logger.h"
+#include "IEvent.h"
+#include "ILogger.h"
 #include "Application.h"
 
 using namespace application;
@@ -24,9 +25,13 @@ void Application::run()
     m_logger->log("Debugger finished");
 }
 
-void Application::notify()
+void Application::notify(std::shared_ptr<IEvent> p_event)
 {
-    m_logger->debug("Received notification");
-    std::unique_lock<std::mutex> l_lock {*m_mutex};
-    m_variable->notify_one();
+    m_logger->debug("Received event");
+    if (EventType::STOP == p_event->getEventType())
+    {
+        m_logger->log("Received stop event");
+        std::unique_lock<std::mutex> l_lock {*m_mutex};
+        m_variable->notify_one();
+    }
 }
