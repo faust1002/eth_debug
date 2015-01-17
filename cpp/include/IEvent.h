@@ -10,7 +10,7 @@ enum class EventType
     UNDEFINED = 0,
     START = 1,
     BASIC = 2,
-    END = 3
+    STOP = 3
 };
 
 class IEvent

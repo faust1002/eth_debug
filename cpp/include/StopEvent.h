@@ -5,7 +5,7 @@
 namespace application
 {
 
-class UndefinedEvent : public Event
+class StopEvent : public Event
 {
 public:
     EventType getEventType() const;
