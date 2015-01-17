@@ -17,7 +17,7 @@ public:
 TEST_F(LinkTestSuite, willNotifyObserver)
 {
 	auto l_observer = std::make_shared<StrictMock<ObserverMock>>();
-	EXPECT_CALL(*l_observer, notify());
+	EXPECT_CALL(*l_observer, notify(_));
 	m_link.addObserver(l_observer);
 	m_link.notifyObservers();
 }
