@@ -3,6 +3,7 @@
 #include <condition_variable>
 #include "IEvent.h"
 #include "ILogger.h"
+#include "Payload.h"
 #include "Application.h"
 
 using namespace application;
@@ -28,6 +29,7 @@ void Application::run()
 void Application::notify(std::shared_ptr<IEvent> p_event)
 {
     m_logger->debug("Received event");
+    m_logger->debug(p_event->getPayload().toString());
     if (EventType::STOP == p_event->getEventType())
     {
         m_logger->log("Received stop event");

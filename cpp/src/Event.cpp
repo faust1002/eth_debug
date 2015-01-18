@@ -1,12 +1,13 @@
 #include <cstdint>
 #include "Event.h"
+#include "Payload.h"
 
 namespace application
 {
 
-uint8_t Event::getPayload() const
+Payload Event::getPayload() const
 {
-    return 0u;
+    return Payload {0u};
 }
 
 } // namespace application

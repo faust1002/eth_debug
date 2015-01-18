@@ -4,6 +4,7 @@
 
 namespace application
 {
+class Payload;
 
 enum class EventType
 {
@@ -16,7 +17,7 @@ enum class EventType
 class IEvent
 {
 public:
-    virtual uint8_t getPayload() const = 0;
+    virtual Payload getPayload() const = 0;
     virtual EventType getEventType() const = 0;
     virtual ~IEvent() = default;
 };

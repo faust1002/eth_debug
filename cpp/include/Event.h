@@ -5,11 +5,12 @@
 
 namespace application
 {
+class Payload;
 
 class Event : public IEvent
 {
 public:
-    uint8_t getPayload() const;
+    Payload getPayload() const;
 };
 
 } // namespace application
