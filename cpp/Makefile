@@ -15,18 +15,18 @@ OBJECTS = $(notdir $(SOURCES:.cpp=.o))
 OBJS = $(addprefix $(OBJDIR)/, $(OBJECTS))
 DEPS = $(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.d))
 
-.PHONY: all debug release executable clean
+.PHONY: all debug release clean
 
 all: debug
 
 release: CXXFLAGS += -O3
-release: executable
+release: $(PROGRAM)
 
 debug: CXXFLAGS += -ggdb3 -fno-inline -O0
-debug: executable
+debug: $(PROGRAM)
 
-executable: $(OBJS)
-	$(CXX) -o $(PROGRAM) $^ $(LDFLAGS)
+$(PROGRAM): $(OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp |$(OBJDIR)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
