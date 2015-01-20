@@ -1,3 +1,5 @@
+`include "defines.v"
+
 module debugger(
     input wire clk, reset,
     input wire [7:0] w,
@@ -9,6 +11,7 @@ module debugger(
     reg trigger_reg, trigger_next;
     wire [7:0] w_db;
 
+    `ifdef DEBOUNCING_ENABLED
     debounce debounce_unit0 (.clk(clk), .reset(reset), .sw(w[0]), .db(w_db[0]));
     debounce debounce_unit1 (.clk(clk), .reset(reset), .sw(w[1]), .db(w_db[1]));
     debounce debounce_unit2 (.clk(clk), .reset(reset), .sw(w[2]), .db(w_db[2]));
@@ -17,6 +20,9 @@ module debugger(
     debounce debounce_unit5 (.clk(clk), .reset(reset), .sw(w[5]), .db(w_db[5]));
     debounce debounce_unit6 (.clk(clk), .reset(reset), .sw(w[6]), .db(w_db[6]));
     debounce debounce_unit7 (.clk(clk), .reset(reset), .sw(w[7]), .db(w_db[7]));
+    `else
+     assign w_db = w;
+    `endif
 
     always @(posedge clk, posedge reset)
         if (reset) begin

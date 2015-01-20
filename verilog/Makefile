@@ -12,7 +12,7 @@ BITGEN=/home/pawel/xilinx/14.7/ISE_DS/ISE/bin/lin64/bitgen
 DEVICE=xc6slx16
 PARTNAME=$(DEVICE)-csg324-3
 DESIGN=eth_debug
-SRC=eth_debug.v \
+SRC=eth_debug.v defines.v \
 debugger/debugger.v \
 uart/baud_rate_generator.v uart/uart_tx.v uart/uart.v \
 utils/fifo_16x8.v utils/xilinx_dist_ram_16x8.v utils/bin2ascii.v utils/debounce.v utils/shift.v

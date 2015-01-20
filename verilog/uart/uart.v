@@ -1,4 +1,6 @@
-module uart #(parameter DBIT = 8, SB_TICK = 16, DVSR = 54, DVSR_BIT = 6)
+`include "defines.v"
+
+module uart #(parameter DBIT = 8, SB_TICK = 16)
              (
               input wire clk, reset,
               output wire tx,
@@ -10,7 +12,7 @@ module uart #(parameter DBIT = 8, SB_TICK = 16, DVSR = 54, DVSR_BIT = 6)
     wire tick, rx_done_tick, tx_done_tick;
     wire [7:0] tx_data_out;
 
-    baud_rate_generator #(.M(DVSR), .N(DVSR_BIT)) baud_gen_unit (.clk(clk), .reset(reset), .max_tick(tick));
+    baud_rate_generator #(.M(`UART_115200)) baud_gen_unit (.clk(clk), .reset(reset), .max_tick(tick));
 
     fifo_16x8 fifo_tx_unit (.clk(clk), .reset(reset), .rd(tx_done_tick), .wr(wr_uart), .w_data(w_data), .empty(tx_empty), .full(tx_full), .r_data(tx_data_out));
 
