@@ -1,16 +1,19 @@
 #pragma once
 
-#include <cstdint>
 #include "IEvent.h"
+#include "Payload.h"
 
 namespace application
 {
-class Payload;
 
 class Event : public IEvent
 {
 public:
+    Event(const Payload&);
     Payload getPayload() const;
+
+private:
+    Payload m_payload;
 };
 
 } // namespace application

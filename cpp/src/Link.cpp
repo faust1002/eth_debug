@@ -16,15 +16,15 @@ std::unique_ptr<application::IEvent> prepareEvent(uint16_t p_data)
 {
     if (0x5053 == p_data)
     {
-        return std::unique_ptr<application::IEvent> {new application::StopEvent};
+        return std::unique_ptr<application::IEvent> {new application::StopEvent(p_data)};
     }
     else if (0x5354 == p_data)
     {
-        return std::unique_ptr<application::IEvent> {new application::StartEvent};
+        return std::unique_ptr<application::IEvent> {new application::StartEvent(p_data)};
     }
     else
     {
-        return std::unique_ptr<application::IEvent> {new application::BasicEvent};
+        return std::unique_ptr<application::IEvent> {new application::BasicEvent(p_data)};
     }
 }
 

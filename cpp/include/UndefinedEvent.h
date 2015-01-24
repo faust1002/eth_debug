@@ -8,6 +8,7 @@ namespace application
 class UndefinedEvent : public Event
 {
 public:
+    UndefinedEvent();
     EventType getEventType() const;
 };
 
