@@ -15,7 +15,7 @@ class Application : public IObserver
 public:
     Application(std::unique_ptr<ILogger>, std::unique_ptr<std::mutex>, std::unique_ptr<std::condition_variable>);
     void run();
-    void notify(std::unique_ptr<Event>);
+    void notify(std::shared_ptr<Event>);
 
 private:
     std::unique_ptr<ILogger> m_logger;

@@ -26,7 +26,7 @@ void Application::run()
     m_logger->log("Debugger finished");
 }
 
-void Application::notify(std::unique_ptr<Event> p_event)
+void Application::notify(std::shared_ptr<Event> p_event)
 {
     if (p_event->isStartEvent())
     {
