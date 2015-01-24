@@ -1,0 +1,123 @@
+In file included from /usr/include/gmock/gmock.h:61:0,
+                 from mocks/ObserverMock.hpp:4,
+                 from LinkTestSuite.cpp:3:
+mocks/ObserverMock.hpp: In member function ‘virtual testing::internal::Function<void()>::Result ut::ObserverMock::notify(testing::internal::Function<void(std::unique_ptr<application::Event>)>::Argument1)’:
+mocks/ObserverMock.hpp:14:2: error: use of deleted function ‘std::unique_ptr<_Tp, _Dp>::unique_ptr(const std::unique_ptr<_Tp, _Dp>&) [with _Tp = application::Event; _Dp = std::default_delete<application::Event>]’
+  MOCK_METHOD1(notify, void(std::unique_ptr<application::Event>));
+  ^
+In file included from /usr/include/c++/4.9/memory:81:0,
+                 from LinkTestSuite.cpp:1:
+/usr/include/c++/4.9/bits/unique_ptr.h:356:7: note: declared here
+       unique_ptr(const unique_ptr&) = delete;
+       ^
+In file included from /usr/include/gmock/gmock.h:61:0,
+                 from mocks/ObserverMock.hpp:4,
+                 from LinkTestSuite.cpp:3:
+/usr/include/gmock/gmock-generated-function-mockers.h:92:5: error:   initializing argument 1 of ‘R testing::internal::FunctionMocker<R(A1)>::Invoke(A1) [with R = void; A1 = std::unique_ptr<application::Event>]’
+   R Invoke(A1 a1) {
+     ^
+LinkTestSuite.cpp: In member function ‘virtual void ut::LinkTestSuite_willNotifyObserver_Test::TestBody()’:
+LinkTestSuite.cpp:22:25: error: no matching function for call to ‘debugger::Link::notifyObservers()’
+  m_link.notifyObservers();
+                         ^
+LinkTestSuite.cpp:22:25: note: candidate is:
+In file included from LinkTestSuite.cpp:4:0:
+../include/Link.h:21:10: note: void debugger::Link::notifyObservers(std::unique_ptr<application::Event>)
+     void notifyObservers(std::unique_ptr<application::Event>);
+          ^
+../include/Link.h:21:10: note:   candidate expects 1 argument, 0 provided
+In file included from /usr/include/c++/4.9/functional:55:0,
+                 from /usr/include/c++/4.9/memory:79,
+                 from LinkTestSuite.cpp:1:
+/usr/include/c++/4.9/tuple: In instantiation of ‘constexpr std::_Head_base<_Idx, _Head, false>::_Head_base(const _Head&) [with long unsigned int _Idx = 0ul; _Head = std::unique_ptr<application::Event>]’:
+/usr/include/c++/4.9/tuple:255:44:   required from ‘constexpr std::_Tuple_impl<_Idx, _Head, _Tail ...>::_Tuple_impl(const _Head&, const _Tail& ...) [with long unsigned int _Idx = 0ul; _Head = std::unique_ptr<application::Event>; _Tail = {}]’
+/usr/include/c++/4.9/tuple:398:33:   required from ‘constexpr std::tuple< <template-parameter-1-1> >::tuple(const _Elements& ...) [with _Elements = {std::unique_ptr<application::Event, std::default_delete<application::Event> >}]’
+/usr/include/gmock/gmock-generated-function-mockers.h:97:46:   required from ‘R testing::internal::FunctionMocker<R(A1)>::Invoke(A1) [with R = void; A1 = std::unique_ptr<application::Event>]’
+mocks/ObserverMock.hpp:14:2:   required from here
+/usr/include/c++/4.9/tuple:134:25: error: use of deleted function ‘std::unique_ptr<_Tp, _Dp>::unique_ptr(const std::unique_ptr<_Tp, _Dp>&) [with _Tp = application::Event; _Dp = std::default_delete<application::Event>]’
+       : _M_head_impl(__h) { }
+                         ^
+In file included from /usr/include/c++/4.9/memory:81:0,
+                 from LinkTestSuite.cpp:1:
+/usr/include/c++/4.9/bits/unique_ptr.h:356:7: note: declared here
+       unique_ptr(const unique_ptr&) = delete;
+       ^
+In file included from /usr/include/gmock/gmock-spec-builders.h:75:0,
+                 from /usr/include/gmock/gmock-generated-function-mockers.h:43,
+                 from /usr/include/gmock/gmock.h:61,
+                 from mocks/ObserverMock.hpp:4,
+                 from LinkTestSuite.cpp:3:
+/usr/include/gmock/gmock-matchers.h: In instantiation of ‘static bool testing::internal::TuplePrefix<N>::Matches(const MatcherTuple&, const ValueTuple&) [with MatcherTuple = std::tuple<testing::Matcher<std::unique_ptr<application::Event, std::default_delete<application::Event> > > >; ValueTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >; long unsigned int N = 1ul]’:
+/usr/include/gmock/gmock-matchers.h:784:41:   required from ‘bool testing::internal::TupleMatches(const MatcherTuple&, const ValueTuple&) [with MatcherTuple = std::tuple<testing::Matcher<std::unique_ptr<application::Event, std::default_delete<application::Event> > > >; ValueTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >]’
+/usr/include/gmock/gmock-spec-builders.h:330:40:   required from ‘bool testing::internal::OnCallSpec<F>::Matches(const ArgumentTuple&) const [with F = void(std::unique_ptr<application::Event>); testing::internal::OnCallSpec<F>::ArgumentTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >]’
+/usr/include/gmock/gmock-spec-builders.h:1429:7:   required from ‘const testing::internal::OnCallSpec<F>* testing::internal::FunctionMockerBase<F>::FindOnCallSpec(const ArgumentTuple&) const [with F = void(std::unique_ptr<application::Event>); testing::internal::FunctionMockerBase<F>::ArgumentTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >]’
+/usr/include/gmock/gmock-spec-builders.h:1580:58:   required from ‘void testing::internal::FunctionMockerBase<F>::DescribeDefaultActionTo(const ArgumentTuple&, std::ostream*) const [with F = void(std::unique_ptr<application::Event>); testing::internal::FunctionMockerBase<F>::ArgumentTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >; std::ostream = std::basic_ostream<char>]’
+/usr/include/gmock/gmock-spec-builders.h:1602:37:   required from ‘void testing::internal::FunctionMockerBase<F>::UntypedDescribeUninterestingCall(const void*, std::ostream*) const [with F = void(std::unique_ptr<application::Event>); std::ostream = std::basic_ostream<char>]’
+LinkTestSuite.cpp:25:1:   required from here
+/usr/include/gmock/gmock-matchers.h:711:9: error: use of deleted function ‘std::unique_ptr<_Tp, _Dp>::unique_ptr(const std::unique_ptr<_Tp, _Dp>&) [with _Tp = application::Event; _Dp = std::default_delete<application::Event>]’
+         && get<N - 1>(matcher_tuple).Matches(get<N - 1>(value_tuple));
+         ^
+In file included from /usr/include/c++/4.9/memory:81:0,
+                 from LinkTestSuite.cpp:1:
+/usr/include/c++/4.9/bits/unique_ptr.h:356:7: note: declared here
+       unique_ptr(const unique_ptr&) = delete;
+       ^
+In file included from /usr/include/gmock/gmock-spec-builders.h:75:0,
+                 from /usr/include/gmock/gmock-generated-function-mockers.h:43,
+                 from /usr/include/gmock/gmock.h:61,
+                 from mocks/ObserverMock.hpp:4,
+                 from LinkTestSuite.cpp:3:
+/usr/include/gmock/gmock-matchers.h:236:8: error:   initializing argument 1 of ‘bool testing::internal::MatcherBase<T>::Matches(T) const [with T = std::unique_ptr<application::Event>]’
+   bool Matches(T x) const {
+        ^
+/usr/include/gmock/gmock-matchers.h: In instantiation of ‘static void testing::internal::TuplePrefix<N>::ExplainMatchFailuresTo(const MatcherTuple&, const ValueTuple&, std::ostream*) [with MatcherTuple = std::tuple<testing::Matcher<std::unique_ptr<application::Event, std::default_delete<application::Event> > > >; ValueTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >; long unsigned int N = 1ul; std::ostream = std::basic_ostream<char>]’:
+/usr/include/gmock/gmock-matchers.h:795:27:   required from ‘void testing::internal::ExplainMatchFailureTupleTo(const MatcherTuple&, const ValueTuple&, std::ostream*) [with MatcherTuple = std::tuple<testing::Matcher<std::unique_ptr<application::Event, std::default_delete<application::Event> > > >; ValueTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >; std::ostream = std::basic_ostream<char>]’
+/usr/include/gmock/gmock-spec-builders.h:1117:55:   required from ‘void testing::internal::TypedExpectation<F>::ExplainMatchResultTo(const ArgumentTuple&, std::ostream*) const [with F = void(std::unique_ptr<application::Event>); testing::internal::TypedExpectation<F>::ArgumentTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >; std::ostream = std::basic_ostream<char>]’
+/usr/include/gmock/gmock-spec-builders.h:1707:7:   required from ‘void testing::internal::FunctionMockerBase<F>::PrintTriedExpectationsLocked(const ArgumentTuple&, std::ostream*) const [with F = void(std::unique_ptr<application::Event>); testing::internal::FunctionMockerBase<F>::ArgumentTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >; std::ostream = std::basic_ostream<char>]’
+/usr/include/gmock/gmock-spec-builders.h:1683:43:   required from ‘void testing::internal::FunctionMockerBase<F>::FormatUnexpectedCallMessageLocked(const ArgumentTuple&, std::ostream*, std::ostream*) const [with F = void(std::unique_ptr<application::Event>); testing::internal::FunctionMockerBase<F>::ArgumentTuple = std::tuple<std::unique_ptr<application::Event, std::default_delete<application::Event> > >; std::ostream = std::basic_ostream<char>]’
+/usr/include/gmock/gmock-spec-builders.h:1633:7:   required from ‘const testing::internal::ExpectationBase* testing::internal::FunctionMockerBase<F>::UntypedFindMatchingExpectation(const void*, const void**, bool*, std::ostream*, std::ostream*) [with F = void(std::unique_ptr<application::Event>); std::ostream = std::basic_ostream<char>]’
+LinkTestSuite.cpp:25:1:   required from here
+/usr/include/gmock/gmock-matchers.h:733:36: error: use of deleted function ‘std::unique_ptr<_Tp, _Dp>::unique_ptr(const std::unique_ptr<_Tp, _Dp>&) [with _Tp = application::Event; _Dp = std::default_delete<application::Event>]’
+     Value value = get<N - 1>(values);
+                                    ^
+In file included from /usr/include/c++/4.9/memory:81:0,
+                 from LinkTestSuite.cpp:1:
+/usr/include/c++/4.9/bits/unique_ptr.h:356:7: note: declared here
+       unique_ptr(const unique_ptr&) = delete;
+       ^
+In file included from /usr/include/gmock/gmock-spec-builders.h:75:0,
+                 from /usr/include/gmock/gmock-generated-function-mockers.h:43,
+                 from /usr/include/gmock/gmock.h:61,
+                 from mocks/ObserverMock.hpp:4,
+                 from LinkTestSuite.cpp:3:
+/usr/include/gmock/gmock-matchers.h:735:9: error: use of deleted function ‘std::unique_ptr<_Tp, _Dp>::unique_ptr(const std::unique_ptr<_Tp, _Dp>&) [with _Tp = application::Event; _Dp = std::default_delete<application::Event>]’
+     if (!matcher.MatchAndExplain(value, &listener)) {
+         ^
+In file included from /usr/include/c++/4.9/memory:81:0,
+                 from LinkTestSuite.cpp:1:
+/usr/include/c++/4.9/bits/unique_ptr.h:356:7: note: declared here
+       unique_ptr(const unique_ptr&) = delete;
+       ^
+In file included from /usr/include/gmock/gmock-spec-builders.h:75:0,
+                 from /usr/include/gmock/gmock-generated-function-mockers.h:43,
+                 from /usr/include/gmock/gmock.h:61,
+                 from mocks/ObserverMock.hpp:4,
+                 from LinkTestSuite.cpp:3:
+/usr/include/gmock/gmock-matchers.h:231:8: error:   initializing argument 1 of ‘bool testing::internal::MatcherBase<T>::MatchAndExplain(T, testing::MatchResultListener*) const [with T = std::unique_ptr<application::Event>]’
+   bool MatchAndExplain(T x, MatchResultListener* listener) const {
+        ^
+g++: error: ../src/StopEvent.cpp: No such file or directory
+g++: fatal error: no input files
+compilation terminated.
+objs/LinkTestSuite.o: In function `ut::LinkTestSuite_willNotifyObserver_Test::TestBody()':
+/home/pawel/Programming/verilog/eth_debug/cpp/tests/LinkTestSuite.cpp:22: undefined reference to `debugger::Link::notifyObservers()'
+objs/Link.o: In function `debugger::Link::run()':
+/home/pawel/Programming/verilog/eth_debug/cpp/tests/../src/Link.cpp:14: undefined reference to `debugger::LinkRS232::LinkRS232(std::string const&, debugger::LinkSpeed)'
+/home/pawel/Programming/verilog/eth_debug/cpp/tests/../src/Link.cpp:19: undefined reference to `debugger::LinkRS232::hasData()'
+/home/pawel/Programming/verilog/eth_debug/cpp/tests/../src/Link.cpp:21: undefined reference to `debugger::LinkRS232::readData()'
+/home/pawel/Programming/verilog/eth_debug/cpp/tests/../src/Link.cpp:30: undefined reference to `debugger::LinkRS232::~LinkRS232()'
+/home/pawel/Programming/verilog/eth_debug/cpp/tests/../src/Link.cpp:30: undefined reference to `debugger::LinkRS232::~LinkRS232()'
+objs/StopEvent.o: In function `application::Event::~Event()':
+/home/pawel/Programming/verilog/eth_debug/cpp/tests/../include/Event.h:9: undefined reference to `vtable for application::Event'
+objs/StopEvent.o:(.rodata._ZTIN11application9StopEventE[_ZTIN11application9StopEventE]+0x10): undefined reference to `typeinfo for application::Event'
+collect2: error: ld returned 1 exit status
