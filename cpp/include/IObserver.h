@@ -9,7 +9,7 @@ class IEvent;
 class IObserver
 {
 public:
-    virtual void notify(std::shared_ptr<IEvent>) = 0;
+    virtual void notify(std::unique_ptr<IEvent>) = 0;
     virtual ~IObserver() = default;
 };
 

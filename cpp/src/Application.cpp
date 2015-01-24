@@ -26,7 +26,7 @@ void Application::run()
     m_logger->log("Debugger finished");
 }
 
-void Application::notify(std::shared_ptr<IEvent> p_event)
+void Application::notify(std::unique_ptr<IEvent> p_event)
 {
     m_logger->debug("Received event");
     m_logger->debug(p_event->getPayload().toString());
