@@ -12,4 +12,14 @@ Payload Event::getPayload() const
     return m_payload;
 }
 
+bool Event::isStartEvent() const
+{
+    return m_payload.getPayload() == m_startDelimiter;
+}
+
+bool Event::isStopEvent() const
+{
+    return m_payload.getPayload() == m_stopDelimiter;
+}
+
 } // namespace application

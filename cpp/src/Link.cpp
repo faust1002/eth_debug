@@ -1,34 +1,11 @@
 #include <chrono>
 #include <memory>
 #include <thread>
-#include "IEvent.h"
+#include "Event.h"
 #include "IObserver.h"
 #include "LinkRS232.h"
-#include "BasicEvent.h"
-#include "StartEvent.h"
-#include "StopEvent.h"
+#include "Event.h"
 #include "Link.h"
-
-namespace
-{
-
-std::unique_ptr<application::IEvent> prepareEvent(uint16_t p_data)
-{
-    if (0x5350 == p_data)
-    {
-        return std::unique_ptr<application::IEvent> {new application::StopEvent(p_data)};
-    }
-    else if (0x5354 == p_data)
-    {
-        return std::unique_ptr<application::IEvent> {new application::StartEvent(p_data)};
-    }
-    else
-    {
-        return std::unique_ptr<application::IEvent> {new application::BasicEvent(p_data)};
-    }
-}
-
-} // namespace anonymous
 
 using namespace debugger;
 
@@ -42,11 +19,8 @@ void Link::run()
         if (l_linkRS232.hasData())
         {
             auto l_data = l_linkRS232.readData();
-            auto l_event = prepareEvent(l_data);
-            if (application::EventType::STOP == l_event->getEventType())
-            {
-                l_run = false;
-            }
+            std::unique_ptr<application::Event> l_event {new application::Event(l_data)};
+            l_run = !l_event->isStopEvent();
             notifyObservers(std::move(l_event));
         }
         else
@@ -61,7 +35,7 @@ void Link::addObserver(std::weak_ptr<application::IObserver> p_observer)
     m_observers.push_back(p_observer);
 }
 
-void Link::notifyObservers(std::unique_ptr<application::IEvent> p_event)
+void Link::notifyObservers(std::unique_ptr<application::Event> p_event)
 {
     for (auto& l_observer : m_observers)
     {
