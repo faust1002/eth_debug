@@ -1,4 +1,4 @@
-module baud_rate_generator #(parameter N = 4, M = 10) (input wire clk, reset, output wire max_tick);
+module baud_rate_generator #(parameter M = 10, N = $clog2(M + 1)) (input wire clk, reset, output wire max_tick);
 
     reg [N-1:0] r_reg;
     wire [N-1:0] r_next;
