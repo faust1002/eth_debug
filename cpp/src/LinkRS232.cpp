@@ -4,6 +4,9 @@
 namespace debugger
 {
 
+LinkRS232::LinkRS232(const std::string&)
+{}
+
 bool LinkRS232::hasData()
 {
     return false;
