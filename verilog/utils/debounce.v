@@ -1,4 +1,4 @@
-module debounce(
+module debounce #(parameter N = 19) (
     input wire clk, reset,
     input wire sw,
     output reg db
@@ -12,8 +12,6 @@ module debounce(
                      wait0_1 = 3'b101,
                      wait0_2 = 3'b110,
                      wait0_3 = 3'b111;
-
-    localparam N = 19;
 
     reg [N-1:0] q_reg;
     wire [N-1:0] q_next;

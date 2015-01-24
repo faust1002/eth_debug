@@ -2,6 +2,7 @@
 
 module debugger(
     input wire clk, reset,
+    input wire enabled,
     input wire [7:0] w,
     output wire trigger,
     output wire [7:0] data
@@ -35,8 +36,14 @@ module debugger(
         end
 
     always @* begin
-        data_next = w_db;
-        trigger_next = data_reg !== w_db;
+        if (enabled) begin
+            data_next = w_db;
+            trigger_next = data_reg !== w_db;
+        end
+        else begin
+            data_next = data_reg;
+            trigger_next = trigger_reg;
+        end
     end
 
     assign data = data_reg;
