@@ -17,6 +17,12 @@ public:
     LinkRS232& operator=(LinkRS232&&) = delete;
     bool hasData();
     uint16_t readData();
+    ~LinkRS232();
+
+private:
+    void openConnection(const std::string&);
+    void closeConnection();
+    int m_fd;
 };
 
 } // namespace debugger;
