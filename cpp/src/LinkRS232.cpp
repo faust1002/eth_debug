@@ -22,7 +22,7 @@ bool LinkRS232::hasData()
     const size_t l_length = 2;
     uint8_t l_data[l_length];
     ssize_t l_read = read(m_fd, l_data, l_length);
-    m_data = (static_cast<uint16_t>(l_data[1]) << 8) | (l_data[0]);
+    m_data = (static_cast<uint16_t>(l_data[0]) << 8) | (l_data[1]);
     return l_read == l_length;
 }
 

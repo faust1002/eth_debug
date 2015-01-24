@@ -28,12 +28,20 @@ void Application::run()
 
 void Application::notify(std::unique_ptr<IEvent> p_event)
 {
-    m_logger->debug("Received event");
-    m_logger->debug(p_event->getPayload().toString());
-    if (EventType::STOP == p_event->getEventType())
+    auto l_eventType = p_event->getEventType();
+    if (EventType::START == l_eventType)
+    {
+        m_logger->log("Received start event");
+    }
+    else if (EventType::STOP == l_eventType)
     {
         m_logger->log("Received stop event");
         std::unique_lock<std::mutex> l_lock {*m_mutex};
         m_variable->notify_one();
+    }
+    else
+    {
+        m_logger->debug("Received event");
+        m_logger->debug(p_event->getPayload().toString());
     }
 }

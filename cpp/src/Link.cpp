@@ -14,7 +14,7 @@ namespace
 
 std::unique_ptr<application::IEvent> prepareEvent(uint16_t p_data)
 {
-    if (0x5053 == p_data)
+    if (0x5350 == p_data)
     {
         return std::unique_ptr<application::IEvent> {new application::StopEvent(p_data)};
     }
