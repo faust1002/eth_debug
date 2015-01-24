@@ -4,12 +4,12 @@
 
 namespace application
 {
-class IEvent;
+class Event;
 
 class IObserver
 {
 public:
-    virtual void notify(std::shared_ptr<IEvent>) = 0;
+    virtual void notify(std::unique_ptr<Event>) = 0;
     virtual ~IObserver() = default;
 };
 

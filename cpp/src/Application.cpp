@@ -1,8 +1,8 @@
 #include <memory>
 #include <mutex>
 #include <condition_variable>
-#include "IEvent.h"
 #include "ILogger.h"
+#include "Event.h"
 #include "Payload.h"
 #include "Application.h"
 
@@ -26,14 +26,21 @@ void Application::run()
     m_logger->log("Debugger finished");
 }
 
-void Application::notify(std::shared_ptr<IEvent> p_event)
+void Application::notify(std::unique_ptr<Event> p_event)
 {
-    m_logger->debug("Received event");
-    m_logger->debug(p_event->getPayload().toString());
-    if (EventType::STOP == p_event->getEventType())
+    if (p_event->isStartEvent())
+    {
+        m_logger->log("Received start event");
+    }
+    else if (p_event->isStopEvent())
     {
         m_logger->log("Received stop event");
         std::unique_lock<std::mutex> l_lock {*m_mutex};
         m_variable->notify_one();
+    }
+    else
+    {
+        m_logger->debug("Received event");
+        m_logger->debug(p_event->getPayload().toString());
     }
 }
