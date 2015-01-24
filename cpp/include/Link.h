@@ -17,7 +17,7 @@ class Link : public application::IObserverable
 {
 public:
     void run();
-    void addObserver(std::weak_ptr<application::IObserver>);
+    void addObserver(std::weak_ptr<application::IObserver>) override;
     void notifyObservers(std::shared_ptr<application::Event>);
 
 private:

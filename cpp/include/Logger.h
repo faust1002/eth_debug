@@ -14,11 +14,11 @@ class Logger : public ILogger
 {
 public:
     Logger(LogLevel, std::unique_ptr<ILogFormatter>, std::ostream&);
-    void debug(const std::string&);
-    void log(const std::string&);
-    void warn(const std::string&);
-    void error(const std::string&);
-    void critical(const std::string&);
+    void debug(const std::string&) override;
+    void log(const std::string&) override;
+    void warn(const std::string&) override;
+    void error(const std::string&) override;
+    void critical(const std::string&) override;
 
 private:
     void write(LogLevel, const std::string&);

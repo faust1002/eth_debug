@@ -16,8 +16,8 @@ public:
     LinkRS232(LinkRS232&&) = delete;
     LinkRS232& operator=(const LinkRS232&) = delete;
     LinkRS232& operator=(LinkRS232&&) = delete;
-    bool hasData();
-    uint16_t readData();
+    bool hasData() override;
+    uint16_t readData() override;
     ~LinkRS232();
 
 private:
