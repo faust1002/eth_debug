@@ -11,8 +11,8 @@ int main()
 {
     try
     {
-        auto l_app = application::createApplication();
-        auto l_link = std::make_shared<debugger::Link>();
+        std::shared_ptr<application::Application> l_app = application::createApplication();
+        std::unique_ptr<debugger::Link> l_link {new debugger::Link};
         l_link->addObserver(l_app);
         std::thread l_appThread {[&]{l_app->run();}};
         std::thread l_linkThread {[&]{l_link->run();}};

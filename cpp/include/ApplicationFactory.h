@@ -6,6 +6,6 @@ namespace application
 {
 class Application;
 
-std::shared_ptr<Application> createApplication();
+std::unique_ptr<Application> createApplication();
 
 }
