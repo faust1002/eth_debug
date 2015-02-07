@@ -1,7 +1,9 @@
 #pragma once
 
+#include <fstream>
 #include <iosfwd>
 #include <memory>
+#include <string>
 #include "Logger.h"
 #include "LogLevel.h"
 
@@ -9,15 +11,15 @@ namespace application
 {
 class ILogFormatter;
 
-class ConsoleLogger : public Logger
+class FileLogger : public Logger
 {
 public:
-    ConsoleLogger(LogLevel, std::unique_ptr<ILogFormatter>, std::ostream&);
+    FileLogger(LogLevel, std::unique_ptr<ILogFormatter>, const std::string&);
 
 private:
     std::ostream& getOutputStream();
 
-    std::ostream& m_out;
+    std::ofstream m_out;
 };
 
 } // namespace application

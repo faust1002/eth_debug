@@ -5,7 +5,8 @@
 namespace application
 {
 class Application;
+class IniFile;
 
-std::unique_ptr<Application> createApplication();
+std::unique_ptr<Application> createApplication(const IniFile&);
 
 }
