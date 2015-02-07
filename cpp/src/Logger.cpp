@@ -41,9 +41,10 @@ void Logger::write(LogLevel p_level, const std::string& p_msg)
     if (p_level >= m_level)
     {
         auto l_msg = m_formatter->format(p_level, p_msg);
-        getOutputStream() << l_msg;
+        auto& l_stream = getOutputStream();
+        l_stream << l_msg;
+        l_stream.flush();
     }
 }
 
 } // namespace application
-

@@ -10,16 +10,18 @@
 
 using namespace debugger;
 
+Link::Link() : m_linkHw {new LinkRS232 {"/dev/ftdi", LinkSpeed::SPEED115200}}
+{}
+
 void Link::run()
 {
-    LinkRS232 l_linkRS232 {"/dev/ftdi", LinkSpeed::SPEED115200};
     std::chrono::milliseconds l_duration {100};
     bool l_run = true;
     while (l_run)
     {
-        if (l_linkRS232.hasData())
+        if (m_linkHw->hasData())
         {
-            auto l_data = l_linkRS232.readData();
+            auto l_data = m_linkHw->readData();
             auto l_event = std::make_shared<application::Event>(l_data);
             l_run = !l_event->isStopEvent();
             notifyObservers(l_event);

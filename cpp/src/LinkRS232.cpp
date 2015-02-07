@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
+#include <stdexcept>
 #include "LinkSpeed.h"
 #include "LinkSpeedConverter.h"
 #include "LinkRS232.h"
@@ -38,13 +39,17 @@ LinkRS232::~LinkRS232()
 
 void LinkRS232::openConnection(const std::string& p_path, LinkSpeed p_linkSpeed)
 {
+    m_fd = open(p_path.c_str(), O_RDONLY, O_NONBLOCK);
+    if (-1 == m_fd)
+    {
+        throw std::runtime_error("Unable to open device " + p_path);
+    }
     termios l_rs232;
     l_rs232.c_lflag = 0;
     l_rs232.c_oflag = 0;
     l_rs232.c_cflag = CS8 | CREAD | CLOCAL;
     l_rs232.c_cc[VMIN] = 1;
     l_rs232.c_cc[VTIME] = 5;
-    m_fd = open(p_path.c_str(), O_RDONLY, O_NONBLOCK);
     speed_t l_speed = convertSpeed(p_linkSpeed);
     cfsetospeed(&l_rs232, l_speed);
     cfsetispeed(&l_rs232, l_speed);
