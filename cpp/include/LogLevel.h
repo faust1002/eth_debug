@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace application
 {
 
@@ -11,5 +13,7 @@ enum class LogLevel
     ERROR,
     CRITICAL
 };
+
+LogLevel convertLogLevel(const std::string&);
 
 } // namespace application
