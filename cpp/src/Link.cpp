@@ -10,7 +10,7 @@
 
 using namespace debugger;
 
-Link::Link() : m_linkHw {new LinkRS232 {"/dev/ftdi", LinkSpeed::SPEED115200}}
+Link::Link(const std::string& p_path) : m_linkHw {new LinkRS232 {p_path, LinkSpeed::SPEED115200}}
 {}
 
 void Link::run()
