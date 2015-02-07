@@ -1,13 +1,16 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include <vector>
 #include "IObserverable.h"
+#include "LinkRS232.h"
+#include "ILinkHw.h"
 
 namespace application
 {
 class IObserver;
-class IEvent;
+class Event;
 } // namespace application
 
 namespace debugger
@@ -16,12 +19,15 @@ namespace debugger
 class Link : public application::IObserverable
 {
 public:
+    Link(const std::string&, ILinkHw::ILinkSpeed);
     void run();
-    void addObserver(std::weak_ptr<application::IObserver>);
-    void notifyObservers(std::unique_ptr<application::Event>);
+    void addObserver(std::weak_ptr<application::IObserver>) override;
 
 private:
+    void notifyObservers(std::shared_ptr<application::Event>);
+
     std::vector<std::weak_ptr<application::IObserver>> m_observers;
+    std::unique_ptr<ILinkHw> m_linkHw;
 };
 
 } // namespace debugger

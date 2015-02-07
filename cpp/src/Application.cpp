@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <memory>
 #include <mutex>
 #include <condition_variable>
@@ -8,39 +9,37 @@
 
 using namespace application;
 
-Application::Application(std::unique_ptr<ILogger> p_logger, std::unique_ptr<std::mutex> p_mutex,
-                         std::unique_ptr<std::condition_variable> p_variable)
-    : m_logger {std::move(p_logger)}, m_mutex {std::move(p_mutex)}, m_variable {std::move(p_variable)}
+Application::Application(std::shared_ptr<ILogger> p_logger)
+    : m_logger {p_logger}
 {}
 
 void Application::run()
 {
-    std::unique_lock<std::mutex> l_lock {*m_mutex};
+    std::unique_lock<std::mutex> l_lock {m_mutex};
     bool l_run = true;
     m_logger->log("Starting debugger");
     while (l_run)
     {
-        m_variable->wait(l_lock);
+        m_variable.wait(l_lock);
         l_run = false;
     }
     m_logger->log("Debugger finished");
 }
 
-void Application::notify(std::unique_ptr<Event> p_event)
+void Application::notify(std::shared_ptr<Event> p_event)
 {
-    if (p_event->isStartEvent())
+    for (auto& l_eventHandler : m_eventHandlers)
     {
-        m_logger->log("Received start event");
+        l_eventHandler->handleEvent(p_event);
     }
-    else if (p_event->isStopEvent())
+    if (p_event->isStopEvent())
     {
-        m_logger->log("Received stop event");
-        std::unique_lock<std::mutex> l_lock {*m_mutex};
-        m_variable->notify_one();
+        std::unique_lock<std::mutex> l_lock {m_mutex};
+        m_variable.notify_one();
     }
-    else
-    {
-        m_logger->debug("Received event");
-        m_logger->debug(p_event->getPayload().toString());
-    }
+}
+
+void Application::appendHandler(std::unique_ptr<IEventHandler> p_eventHandler)
+{
+    m_eventHandlers.push_back(std::move(p_eventHandler));
 }

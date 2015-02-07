@@ -1,10 +1,11 @@
 #pragma once
 
-#include "LinkSpeed.h"
+#include <string>
+#include "ILinkHw.h"
 
 namespace debugger
 {
 
-speed_t convertSpeed(LinkSpeed);
+ILinkHw::ILinkSpeed convertSpeed(const std::string&);
 
 } // namespace debugger

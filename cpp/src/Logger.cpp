@@ -7,8 +7,8 @@
 namespace application
 {
 
-Logger::Logger(LogLevel p_level, std::unique_ptr<ILogFormatter> p_formatter, std::ostream& p_out)
-    : m_level {p_level}, m_formatter {std::move(p_formatter)}, m_out {p_out}
+Logger::Logger(LogLevel p_level, std::unique_ptr<ILogFormatter> p_formatter)
+    : m_level {p_level}, m_formatter {std::move(p_formatter)}
 {}
 
 void Logger::debug(const std::string& p_msg)
@@ -41,7 +41,9 @@ void Logger::write(LogLevel p_level, const std::string& p_msg)
     if (p_level >= m_level)
     {
         auto l_msg = m_formatter->format(p_level, p_msg);
-        m_out << l_msg;
+        auto& l_stream = getOutputStream();
+        l_stream << l_msg;
+        l_stream.flush();
     }
 }
 

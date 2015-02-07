@@ -6,7 +6,7 @@ OBJDIR = $(CURDIR)/objs
 
 CXX = g++
 CPPFLAGS = -I $(HDRDIR)
-CXXFLAGS = -Wall -Wextra -Werror -std=c++0x -march=native -MMD -MP
+CXXFLAGS = -Wall -Wextra -std=c++0x -march=native -MMD -MP
 
 LDFLAGS = -lpthread
 
@@ -19,7 +19,7 @@ DEPS = $(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.d))
 
 all: debug
 
-release: CXXFLAGS += -O3
+release: CXXFLAGS += -O3 -Werror
 release: $(PROGRAM)
 
 debug: CXXFLAGS += -ggdb3 -fno-inline -O0

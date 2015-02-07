@@ -1,19 +1,19 @@
+#include <termios.h>
+#include <iostream>
 #include <stdexcept>
-#include "LinkSpeed.h"
+#include <string>
+#include "ILinkHw.h"
 #include "LinkSpeedConverter.h"
 
 namespace debugger
 {
 
-speed_t convertSpeed(LinkSpeed p_linkSpeed)
+ILinkHw::ILinkSpeed convertSpeed(const std::string& p_speed)
 {
-    switch (p_linkSpeed)
-    {
-        case(LinkSpeed::SPEED9600): return B9600;
-        case(LinkSpeed::SPEED19200): return B19200;
-        case(LinkSpeed::SPEED115200): return B115200;
-        default: throw std::runtime_error("Unknown link speed");
-    }
+    if ("9600" == p_speed) return B9600;
+    else if ("19200" == p_speed) return B19200;
+    else if ("115200" == p_speed) return B115200;
+    else throw std::runtime_error("Unknown link speed");
     return B0;
 }
 

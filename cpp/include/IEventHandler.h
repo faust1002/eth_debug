@@ -6,11 +6,11 @@ namespace application
 {
 class Event;
 
-class IObserver
+class IEventHandler
 {
 public:
-    virtual void notify(std::shared_ptr<Event>) = 0;
-    virtual ~IObserver() = default;
+    virtual void handleEvent(std::shared_ptr<Event>) = 0;
+    ~IEventHandler() = default;
 };
 
 } // namespace application
