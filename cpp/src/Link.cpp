@@ -5,12 +5,13 @@
 #include "Event.h"
 #include "IObserver.h"
 #include "LinkRS232.h"
+#include "ILinkHw.h"
 #include "Event.h"
 #include "Link.h"
 
 using namespace debugger;
 
-Link::Link(const std::string& p_path) : m_linkHw {new LinkRS232 {p_path, LinkSpeed::SPEED115200}}
+Link::Link(const std::string& p_path, ILinkHw::ILinkSpeed p_speed) : m_linkHw {new LinkRS232 {p_path, p_speed}}
 {}
 
 void Link::run()

@@ -12,7 +12,7 @@ public:
     IniFile(const std::string&);
     bool hasSection(const std::string&) const;
     bool hasOption(const std::string&, const std::string&) const;
-    std::string getOption(const std::string&, const std::string&) const;
+    std::string getOption(const std::string&, const std::string&, const std::string& = "") const;
 
 private:
     void parse(const std::string&);

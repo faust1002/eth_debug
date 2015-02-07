@@ -5,6 +5,7 @@
 #include <vector>
 #include "IObserverable.h"
 #include "LinkRS232.h"
+#include "ILinkHw.h"
 
 namespace application
 {
@@ -18,7 +19,7 @@ namespace debugger
 class Link : public application::IObserverable
 {
 public:
-    Link(const std::string&);
+    Link(const std::string&, ILinkHw::ILinkSpeed);
     void run();
     void addObserver(std::weak_ptr<application::IObserver>) override;
 

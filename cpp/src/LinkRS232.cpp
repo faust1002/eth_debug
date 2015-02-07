@@ -5,15 +5,14 @@
 #include <termios.h>
 #include <unistd.h>
 #include <stdexcept>
-#include "LinkSpeed.h"
-#include "LinkSpeedConverter.h"
+#include "ILinkHw.h"
 #include "LinkRS232.h"
 
 //UGLY C-STYLE CODE
 namespace debugger
 {
 
-LinkRS232::LinkRS232(const std::string& p_path, LinkSpeed p_linkSpeed)
+LinkRS232::LinkRS232(const std::string& p_path, ILinkHw::ILinkSpeed p_linkSpeed)
 {
     openConnection(p_path, p_linkSpeed);
 }
@@ -37,7 +36,7 @@ LinkRS232::~LinkRS232()
     closeConnection();
 }
 
-void LinkRS232::openConnection(const std::string& p_path, LinkSpeed p_linkSpeed)
+void LinkRS232::openConnection(const std::string& p_path, ILinkHw::ILinkSpeed p_linkSpeed)
 {
     m_fd = open(p_path.c_str(), O_RDONLY, O_NONBLOCK);
     if (-1 == m_fd)
@@ -50,9 +49,8 @@ void LinkRS232::openConnection(const std::string& p_path, LinkSpeed p_linkSpeed)
     l_rs232.c_cflag = CS8 | CREAD | CLOCAL;
     l_rs232.c_cc[VMIN] = 1;
     l_rs232.c_cc[VTIME] = 5;
-    speed_t l_speed = convertSpeed(p_linkSpeed);
-    cfsetospeed(&l_rs232, l_speed);
-    cfsetispeed(&l_rs232, l_speed);
+    cfsetospeed(&l_rs232, p_linkSpeed);
+    cfsetispeed(&l_rs232, p_linkSpeed);
     tcsetattr(m_fd, TCSANOW, &l_rs232);
 }
 

@@ -78,9 +78,10 @@ bool IniFile::hasOption(const std::string& p_sectionName, const std::string& p_o
     return 1 == l_options.count(p_optionName);
 }
 
-std::string IniFile::getOption(const std::string& p_sectionName, const std::string& p_optionName) const
+std::string IniFile::getOption(const std::string& p_sectionName, const std::string& p_optionName,
+                               const std::string& p_default) const
 {
-    if (!hasOption(p_sectionName, p_optionName)) throw std::runtime_error("Unable to find requested option");
+    if (!hasOption(p_sectionName, p_optionName)) return p_default;
     auto l_options = m_options.at(p_sectionName);
     return l_options.at(p_optionName);
 }
