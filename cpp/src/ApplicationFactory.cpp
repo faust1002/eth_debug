@@ -4,7 +4,7 @@
 #include "LogEventHandler.h"
 #include "VCDEventHandler.h"
 #include "LogFormatter.h"
-#include "Logger.h"
+#include "ConsoleLogger.h"
 #include "Application.h"
 #include "ApplicationFactory.h"
 
@@ -14,7 +14,7 @@ namespace application
 std::unique_ptr<Application> createApplication()
 {
     std::unique_ptr<ILogFormatter> l_formatter {new LogFormatter};
-    auto l_logger = std::make_shared<Logger>(LogLevel::DEBUG, std::move(l_formatter), std::cout);
+    auto l_logger = std::make_shared<ConsoleLogger>(LogLevel::DEBUG, std::move(l_formatter), std::cout);
     std::unique_ptr<Application> l_application{new Application(l_logger)};
     std::unique_ptr<IEventHandler> l_logHandler {new LogEventHandler(l_logger)};
     l_application->appendHandler(std::move(l_logHandler));
